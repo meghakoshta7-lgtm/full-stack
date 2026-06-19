@@ -1,5 +1,5 @@
 import React from 'react';
-import { Star, Rocket, Users, Store, BarChart3, User, KeyRound, Pencil, Trash2, Search, List, AlertTriangle, CheckCircle, FileText, MessageSquare, TrendingUp, MapPin, Sparkles, Ban, Clock, Smile, Frown, Meh, Plus, LogOut, Eye, EyeOff, Lock, ArrowUpDown, ArrowUp, ArrowDown, ArrowRight, ArrowLeft, X, Loader2, LayoutGrid, LayoutList, Shield, Sun, HelpCircle } from 'lucide-react';
+import { Star, Rocket, Users, Store, BarChart3, User, KeyRound, Pencil, Trash2, Search, List, AlertTriangle, CheckCircle, FileText, MessageSquare, TrendingUp, MapPin, Sparkles, Ban, Clock, Smile, Frown, Meh, Plus, LogOut, Eye, EyeOff, Lock, ArrowUpDown, ArrowUp, ArrowDown, ArrowRight, ArrowLeft, X, Loader2, LayoutGrid, LayoutList, Shield, Sun, HelpCircle, BadgeCheck } from 'lucide-react';
 
 export const Icons = {
   Star: (props: any) => <Star {...props} />,
@@ -42,4 +42,5 @@ export const Icons = {
   Lock: (props: any) => <Lock {...props} />,
   Sun: (props: any) => <Sun {...props} />,
   HelpCircle: (props: any) => <HelpCircle {...props} />,
+  BadgeCheck: (props: any) => <BadgeCheck {...props} />,
 };
