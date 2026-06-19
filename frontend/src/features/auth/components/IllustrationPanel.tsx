@@ -92,7 +92,7 @@ export const IllustrationPanel: React.FC = () => (
       initial={{ scale: 0.85, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 0.8, ease: 'easeOut' as const }}
-      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[58%] pointer-events-none">
+      className="absolute top-[5%] left-1/2 -translate-x-1/2 pointer-events-none">
       <img src="/assets/login-illustration.png" alt="Store Rating Illustration"
         className="w-[850px] max-w-none h-auto object-contain"
         style={{ filter: 'drop-shadow(0 20px 40px rgba(120, 100, 180, 0.2))' }} />
