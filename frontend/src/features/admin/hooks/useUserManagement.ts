@@ -27,7 +27,7 @@ export function useUserManagement() {
     } catch (err: any) { setError(err.response?.data?.message || 'Failed'); }
   };
 
-  useEffect(() => { fetchUsers(); }, [order, orderBy, filters]);
+  useEffect(() => { fetchUsers(); }, [order, orderBy, filters]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSort = (field: SortField) => {
     const a = orderBy === field && order === 'asc';

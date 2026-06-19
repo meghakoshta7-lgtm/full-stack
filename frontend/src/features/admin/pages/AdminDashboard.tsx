@@ -14,7 +14,7 @@ const AdminDashboard: React.FC = () => {
   const { stats, recentUsers, recentStores, loading, error } = useAdminDashboard();
   const { toasts, removeToast, showError } = useToast();
 
-  useEffect(() => { if (error) showError('Error', error); }, [error]);
+  useEffect(() => { if (error) showError('Error', error); }, [error, showError]);
 
   if (loading) return <LoadingSpinner />;
 

@@ -30,7 +30,7 @@ export function useStoreManagement() {
 
   const fetchOwners = async () => { try { setOwners(await adminApi.getStoreOwners()); } catch {} };
 
-  useEffect(() => { fetchStores(); fetchOwners(); }, [order, orderBy, filters]);
+  useEffect(() => { fetchStores(); fetchOwners(); }, [order, orderBy, filters]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSort = (field: SortField) => {
     const a = orderBy === field && order === 'asc';

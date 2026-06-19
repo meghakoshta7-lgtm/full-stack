@@ -17,8 +17,8 @@ const StoreManagement: React.FC = () => {
   } = useStoreManagement();
   const { toasts, removeToast, showSuccess, showError } = useToast();
 
-  useEffect(() => { if (error) { showError('Error', error); setError(''); } }, [error]);
-  useEffect(() => { if (success) { showSuccess('Success', success); setSuccess(''); } }, [success]);
+  useEffect(() => { if (error) { showError('Error', error); setError(''); } }, [error, showError, setError]);
+  useEffect(() => { if (success) { showSuccess('Success', success); setSuccess(''); } }, [success, showSuccess, setSuccess]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
