@@ -101,20 +101,25 @@ export const LoginForm: React.FC<Props> = ({
 
         <div className="relative my-5">
           <div className="absolute inset-0 flex items-center"><div className="w-full" style={{ borderTop: '1px solid #e2e8f0' }} /></div>
-          <div className="relative flex justify-center text-[11px]"><span className="px-3 font-medium" style={{ background: '#ffffff', color: '#94a3b8' }}>or quick login</span></div>
+          <div className="relative flex justify-center text-[11px]"><span className="px-3 font-medium" style={{ background: '#ffffff', color: '#94a3b8' }}>Demo accounts</span></div>
         </div>
 
-        <div className="grid grid-cols-3 gap-3">
+        <div className="space-y-2.5">
           {demoAccounts.map((acc) => {
             const Icon = acc.icon;
             return (
-              <motion.button key={acc.email} whileHover={{ scale: 1.04, borderColor: '#c4b5fd', backgroundColor: '#f5f3ff' }} whileTap={{ scale: 0.95 }}
-                disabled={loading} onClick={() => onQuickLogin(acc.email, acc.password)}
-                className="flex flex-col items-center justify-center py-[18px] px-2 rounded-[12px] transition-all disabled:opacity-50"
-                style={{ border: '1.5px solid #e2e8f0', background: '#ffffff' }}>
-                <Icon className="w-5 h-5 mb-1.5" style={{ color: '#6366f1' }} />
-                <span className="text-[11px] font-bold" style={{ color: '#475569' }}>{acc.label}</span>
-              </motion.button>
+              <div key={acc.email}
+                className="flex items-center gap-3 py-3 px-4 rounded-[12px] cursor-default select-none"
+                style={{ border: '1.5px solid #f1f5f9', background: '#f8fafc' }}>
+                <div className="w-9 h-9 rounded-[10px] flex items-center justify-center flex-shrink-0"
+                  style={{ background: 'linear-gradient(135deg, #ede9fe 0%, #e0e7ff 100%)' }}>
+                  <Icon className="w-4 h-4" style={{ color: '#6366f1' }} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[12px] font-bold truncate" style={{ color: '#334155' }}>{acc.label}</p>
+                  <p className="text-[11px] truncate" style={{ color: '#94a3b8' }}>{acc.email}</p>
+                </div>
+              </div>
             );
           })}
         </div>
