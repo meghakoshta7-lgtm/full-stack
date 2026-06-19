@@ -5,6 +5,9 @@ export const authApi = {
   login(credentials: LoginCredentials): Promise<AuthResponse> {
     return api.post<AuthResponse>('/auth/login', credentials).then(r => r.data);
   },
+  googleLogin(credential: string): Promise<AuthResponse> {
+    return api.post<AuthResponse>('/auth/google', { credential }).then(r => r.data);
+  },
   register(data: RegisterData): Promise<any> {
     return api.post('/auth/register', data).then(r => r.data);
   },

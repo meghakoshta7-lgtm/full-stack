@@ -1,10 +1,13 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+import { OAuth2Client } from 'google-auth-library';
 import User from '../user/user.model';
 import { config } from '../../config/database';
 import { EmailService } from '../../services/email.service';
 import { UserRole, IJwtPayload } from '../../types';
+
+const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export class AuthService {
   static async register(
@@ -145,5 +148,52 @@ export class AuthService {
     await user.save();
 
     return { message: 'Password reset successfully' };
+  }
+
+  static async googleLogin(credential: string) {
+    const ticket = await googleClient.verifyIdToken({
+      idToken: credential,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+    if (!payload || !payload.email) {
+      throw new Error('Invalid Google token');
+    }
+
+    const { email, name, sub: googleId } = payload;
+
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      const domain = email.split('@')[1] || '';
+      const role = domain.includes('owner') ? UserRole.STORE_OWNER : UserRole.USER;
+      user = await User.create({
+        name: name || email.split('@')[0],
+        email,
+        password: await bcrypt.hash(googleId, 10),
+        address: '.',
+        role,
+      });
+    }
+
+    const tokenPayload: IJwtPayload = {
+      userId: user._id.toString(),
+      email: user.email,
+      role: user.role,
+    };
+
+    const token = jwt.sign(tokenPayload as object, config.jwt.secret, { expiresIn: config.jwt.expiresIn } as jwt.SignOptions);
+
+    return {
+      token,
+      user: {
+        id: user._id.toString(),
+        name: user.name,
+        email: user.email,
+        address: user.address,
+        role: user.role,
+      },
+    };
   }
 }

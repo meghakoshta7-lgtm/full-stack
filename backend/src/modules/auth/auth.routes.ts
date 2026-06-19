@@ -69,4 +69,14 @@ router.put(
   }
 );
 
+router.post('/google', async (req: Request, res: Response) => {
+  try {
+    const { credential } = req.body;
+    const result = await AuthService.googleLogin(credential);
+    res.json(result);
+  } catch (error: any) {
+    res.status(401).json({ message: error.message || 'Google authentication failed' });
+  }
+});
+
 export default router;
