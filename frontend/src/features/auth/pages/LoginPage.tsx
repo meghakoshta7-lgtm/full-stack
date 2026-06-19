@@ -26,9 +26,6 @@ const LoginPage: React.FC = () => {
           onTogglePassword={() => setShowPassword(!showPassword)}
           onToggleRemember={setRememberMe} />
       </div>
-      <div className="py-3 text-center bg-[#f0eaf8]">
-        <p className="text-[12px]" style={{ color: '#94a3b8' }}>&copy; 2026 Store Rating System. All rights reserved.</p>
-      </div>
     </div>
   );
 };

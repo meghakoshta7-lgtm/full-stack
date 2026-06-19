@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 export const IllustrationPanel: React.FC = () => (
   <div className="hidden lg:flex lg:w-[56%] relative overflow-hidden items-center justify-center bg-[#f0eaf8]">
@@ -10,16 +11,26 @@ export const IllustrationPanel: React.FC = () => (
     <div className="absolute top-[32%] left-[4%] w-[4px] h-[4px] rounded-full" style={{ background: '#b090e0', opacity: 0.55 }} />
     <div className="absolute bottom-[18%] right-[9%] w-[5px] h-[5px] rounded-full" style={{ background: '#d0c0f5', opacity: 0.45 }} />
     <div className="absolute bottom-[52%] right-[4%] w-[4px] h-[4px] rounded-full" style={{ background: '#b8a0e8', opacity: 0.5 }} />
-    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+
+    <motion.div
+      initial={{ scale: 0.8, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ duration: 0.8, ease: 'easeOut' }}
+      className="flex items-center justify-center mt-[-60px]">
       <img src="/assets/login-illustration.png" alt="Store Rating Illustration"
-        className="w-[700px] h-auto object-contain"
-        style={{ filter: 'drop-shadow(0 20px 40px rgba(120, 100, 180, 0.2))', marginTop: '-40px' }} />
-    </div>
-    <div className="absolute bottom-10 left-10 z-10">
+        className="w-[520px] h-auto object-contain"
+        style={{ filter: 'drop-shadow(0 20px 40px rgba(120, 100, 180, 0.2))' }} />
+    </motion.div>
+
+    <motion.div
+      initial={{ x: -30, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
+      className="absolute bottom-16 left-10 z-10">
       <h2 className="text-[40px] font-display font-extrabold leading-[1.1]" style={{ color: '#1e293b' }}>Rate Stores.</h2>
       <h2 className="text-[40px] font-display font-extrabold leading-[1.1]" style={{ color: '#6366f1' }}>Share Feedback.</h2>
       <p className="text-[13px] mt-3 max-w-[280px] leading-relaxed" style={{ color: '#64748b' }}>Your feedback helps stores grow and serve you better.</p>
       <div className="w-[42px] h-[3px] rounded-full mt-5" style={{ background: '#6366f1' }} />
-    </div>
+    </motion.div>
   </div>
 );
