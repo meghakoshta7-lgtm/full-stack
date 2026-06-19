@@ -38,20 +38,13 @@ export class UserService {
       .lean();
 
     const storeOwners = users.filter((u: any) => u.role === UserRole.STORE_OWNER);
-    const ratingsMap: Record<string, number> = {};
+    const ratingsMap: Record<string, number[]> = {};
     if (storeOwners.length > 0) {
       const stores = await Store.find({ ownerId: { $in: storeOwners.map((u: any) => u._id) } }).lean();
       if (stores.length > 0) {
-        const ratings = await Rating.find({ storeId: { $in: stores.map(s => s._id) } }).lean();
+        const ratings = await Rating.find({ storeId: { $in: stores.map((s: any) => s._id) } }).lean();
         for (const r of ratings) {
-          const store = stores.find(s => s._id.toString() === r.storeId.toString());
-          if (store) {
-            const ownerId = store.ownerId.toString();
-            ratingsMap[ownerId] = (ratingsMap[ownerId] || []);
-          }
-        }
-        for (const r of ratings) {
-          const store = stores.find(s => s._id.toString() === r.storeId.toString());
+          const store = stores.find((s: any) => s._id.toString() === r.storeId.toString());
           if (store) {
             const ownerId = store.ownerId.toString();
             if (!ratingsMap[ownerId]) ratingsMap[ownerId] = [];
