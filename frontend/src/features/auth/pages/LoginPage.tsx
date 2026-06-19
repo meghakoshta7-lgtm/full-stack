@@ -10,7 +10,7 @@ const LoginPage: React.FC = () => {
   const location = useLocation();
   const { isAuthenticated } = useAuth();
   const state = location.state as { email?: string; password?: string } | null;
-  const { formData, setFormData, error, loading, showPassword, setShowPassword, rememberMe, setRememberMe, handleSubmit, handleQuickLogin } = useLogin();
+  const { formData, setFormData, error, loading, showPassword, setShowPassword, rememberMe, setRememberMe, handleSubmit } = useLogin();
 
   useEffect(() => { if (state?.email) setFormData(prev => ({ ...prev, email: state.email!, password: state.password || '' })); }, []); // eslint-disable-line
   useEffect(() => { if (isAuthenticated) navigate('/', { replace: true }); }, [isAuthenticated, navigate]);
@@ -23,7 +23,7 @@ const LoginPage: React.FC = () => {
           formData={formData} error={error} loading={loading}
           showPassword={showPassword} rememberMe={rememberMe}
           onFormChange={setFormData} onSubmit={handleSubmit}
-          onQuickLogin={handleQuickLogin} onTogglePassword={() => setShowPassword(!showPassword)}
+          onTogglePassword={() => setShowPassword(!showPassword)}
           onToggleRemember={setRememberMe} />
       </div>
       <div className="py-3 text-center bg-[#f0eaf8]">

@@ -4,13 +4,6 @@ import { motion } from 'framer-motion';
 import { Icons } from '../../../components/common/Icons';
 import { Toast } from '../../../components/shared/Toast';
 import { useToast } from '../../../hooks/useToast';
-import { DemoAccount } from '../types';
-
-const demoAccounts: DemoAccount[] = [
-  { label: 'Admin', email: 'admin@example.com', password: 'Admin@123', icon: Icons.Shield },
-  { label: 'Store Owner', email: 'owner1@example.com', password: 'Owner@123', icon: Icons.Store },
-  { label: 'User', email: 'user1@example.com', password: 'User@1234', icon: Icons.User },
-];
 
 interface Props {
   formData: { email: string; password: string };
@@ -20,14 +13,13 @@ interface Props {
   rememberMe: boolean;
   onFormChange: (data: { email: string; password: string }) => void;
   onSubmit: (e: React.FormEvent) => void;
-  onQuickLogin: (email: string, password: string) => void;
   onTogglePassword: () => void;
   onToggleRemember: (v: boolean) => void;
 }
 
 export const LoginForm: React.FC<Props> = ({
   formData, error, loading, showPassword, rememberMe,
-  onFormChange, onSubmit, onQuickLogin, onTogglePassword, onToggleRemember
+  onFormChange, onSubmit, onTogglePassword, onToggleRemember
 }) => {
   const { toasts, removeToast, showError } = useToast();
   useEffect(() => { if (error) showError('Login Failed', error); }, [error, showError]);
@@ -98,31 +90,6 @@ export const LoginForm: React.FC<Props> = ({
               : <><Icons.KeyRound className="w-[16px] h-[16px]" /><span>Sign In</span></>}
           </motion.button>
         </form>
-
-        <div className="relative my-5">
-          <div className="absolute inset-0 flex items-center"><div className="w-full" style={{ borderTop: '1px solid #e2e8f0' }} /></div>
-          <div className="relative flex justify-center text-[11px]"><span className="px-3 font-medium" style={{ background: '#ffffff', color: '#94a3b8' }}>Demo accounts</span></div>
-        </div>
-
-        <div className="space-y-2.5">
-          {demoAccounts.map((acc) => {
-            const Icon = acc.icon;
-            return (
-              <div key={acc.email}
-                className="flex items-center gap-3 py-3 px-4 rounded-[12px] cursor-default select-none"
-                style={{ border: '1.5px solid #f1f5f9', background: '#f8fafc' }}>
-                <div className="w-9 h-9 rounded-[10px] flex items-center justify-center flex-shrink-0"
-                  style={{ background: 'linear-gradient(135deg, #ede9fe 0%, #e0e7ff 100%)' }}>
-                  <Icon className="w-4 h-4" style={{ color: '#6366f1' }} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[12px] font-bold truncate" style={{ color: '#334155' }}>{acc.label}</p>
-                  <p className="text-[11px] truncate" style={{ color: '#94a3b8' }}>{acc.email}</p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
 
         <p className="text-center mt-5 text-[13px]" style={{ color: '#94a3b8' }}>
           Don&apos;t have an account?{' '}
