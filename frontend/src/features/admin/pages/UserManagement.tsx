@@ -7,13 +7,14 @@ import { UserFormDialog } from '../components/UserFormDialog';
 import { UserRole } from '../../../types';
 import { Icons } from '../../../components/common/Icons';
 import { PageHeader } from '../../../components/shared/PageHeader';
+import { LoadingSpinner } from '../../../components/shared/LoadingSpinner';
 import { Toast } from '../../../components/shared/Toast';
 import { ConfirmDialog } from '../../../components/shared/ConfirmDialog';
 import { useToast } from '../../../hooks/useToast';
 
 const UserManagement: React.FC = () => {
   const {
-    users, error, success, setError, setSuccess, dialogOpen, setDialogOpen, editingUser, formData, setFormData, order, orderBy, filters, setFilters, formErrors,
+    users, loading, error, success, setError, setSuccess, dialogOpen, setDialogOpen, editingUser, formData, setFormData, order, orderBy, filters, setFilters, formErrors,
     deleteDialog, handleSort, handleSubmit, handleEdit, openDeleteDialog, confirmDelete, cancelDelete, openAddDialog
   } = useUserManagement();
   const { toasts, removeToast, showSuccess, showError } = useToast();

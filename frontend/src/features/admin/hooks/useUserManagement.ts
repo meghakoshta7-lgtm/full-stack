@@ -8,6 +8,7 @@ type SortField = 'name' | 'email' | 'address' | 'role';
 
 export function useUserManagement() {
   const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -21,13 +22,15 @@ export function useUserManagement() {
 
   const fetchUsers = async () => {
     try {
+      setLoading(true);
       const params: Record<string, string> = { sortBy: orderBy, sortOrder: order.toUpperCase() };
       Object.entries(filters).forEach(([k, v]) => { if (v) params[k] = v; });
       setUsers((await adminApi.getUsers(params)).users);
     } catch (err: any) { setError(err.response?.data?.message || 'Failed'); }
+    finally { setLoading(false); }
   };
 
-  useEffect(() => { fetchUsers(); }, [order, orderBy, filters]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { fetchUsers(); }, [order, orderBy, filters]);
 
   const handleSort = (field: SortField) => {
     const a = orderBy === field && order === 'asc';
@@ -76,7 +79,7 @@ export function useUserManagement() {
   const resetForm = () => { setFormData({ name: '', email: '', password: '', address: '', role: UserRole.USER }); setFormErrors({}); };
 
   return {
-    users, error, success, setError, setSuccess, dialogOpen, setDialogOpen, editingUser, formData, setFormData, order, orderBy, filters, setFilters, formErrors,
+    users, loading, error, success, setError, setSuccess, dialogOpen, setDialogOpen, editingUser, formData, setFormData, order, orderBy, filters, setFilters, formErrors,
     deleteDialog, handleSort, handleSubmit, handleEdit, openDeleteDialog, confirmDelete, cancelDelete, openAddDialog
   };
 }

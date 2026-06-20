@@ -9,6 +9,7 @@ type SortField = 'name' | 'email' | 'address';
 export function useStoreManagement() {
   const [stores, setStores] = useState<any[]>([]);
   const [owners, setOwners] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -22,15 +23,17 @@ export function useStoreManagement() {
 
   const fetchStores = async () => {
     try {
+      setLoading(true);
       const params: Record<string, string> = { sortBy: orderBy, sortOrder: order.toUpperCase() };
       Object.entries(filters).forEach(([k, v]) => { if (v) params[k] = v; });
       setStores((await adminApi.getStores(params)).stores);
     } catch (err: any) { setError(err.response?.data?.message || 'Failed'); }
+    finally { setLoading(false); }
   };
 
   const fetchOwners = async () => { try { setOwners(await adminApi.getStoreOwners()); } catch {} };
 
-  useEffect(() => { fetchStores(); fetchOwners(); }, [order, orderBy, filters]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { fetchStores(); fetchOwners(); }, [order, orderBy, filters]);
 
   const handleSort = (field: SortField) => {
     const a = orderBy === field && order === 'asc';
@@ -79,7 +82,7 @@ export function useStoreManagement() {
   const resetForm = () => { setFormData({ name: '', email: '', address: '', ownerId: '' }); setFormErrors({}); };
 
   return {
-    stores, owners, error, success, setError, setSuccess, dialogOpen, setDialogOpen, editingStore, formData, setFormData, order, orderBy, filters, setFilters, formErrors,
+    stores, owners, loading, error, success, setError, setSuccess, dialogOpen, setDialogOpen, editingStore, formData, setFormData, order, orderBy, filters, setFilters, formErrors,
     deleteDialog, handleSort, handleSubmit, handleEdit, openDeleteDialog, confirmDelete, cancelDelete, openAddDialog
   };
 }

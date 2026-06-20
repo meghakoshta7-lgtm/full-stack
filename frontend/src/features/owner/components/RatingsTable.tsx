@@ -34,7 +34,6 @@ export const RatingsTable: React.FC<Props> = ({ ratings, totalRatings, sortField
         <EmptyState icon={Icons.FileText} title="No ratings yet" subtitle="Customer ratings will appear here" />
       ) : (
         <>
-          {/* Desktop table */}
           <div className="hidden md:block overflow-x-auto max-h-[420px] overflow-y-auto">
             <table className="w-full text-sm">
               <thead className="bg-surface-50">
@@ -70,7 +69,7 @@ export const RatingsTable: React.FC<Props> = ({ ratings, totalRatings, sortField
             </table>
           </div>
 
-          {/* Mobile cards */}
+    
           <div className="md:hidden max-h-[420px] overflow-y-auto">
             <AnimatePresence>
               {ratings.map((r, i) => (

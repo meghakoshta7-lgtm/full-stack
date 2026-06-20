@@ -16,7 +16,7 @@ const StoreList: React.FC = () => {
   } = useStoreList();
   const { toasts, removeToast, showError } = useToast();
 
-  useEffect(() => { if (error) { showError('Error', error); setError(''); } }, [error]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (error) { showError('Error', error); setError(''); } }, [error]);
 
   return (
     <div className="min-h-screen" style={{ background: '#f0eaf8' }}>

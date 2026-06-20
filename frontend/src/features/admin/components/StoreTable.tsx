@@ -13,7 +13,6 @@ interface Props {
 
 export const StoreTable: React.FC<Props> = ({ stores, order, orderBy, onSort, onEdit, onDelete }) => (
   <div className="card overflow-hidden">
-    {/* Desktop table */}
     <div className="hidden md:block overflow-x-auto max-h-[420px] overflow-y-auto">
       <table className="w-full text-sm">
         <thead className="bg-surface-50">
@@ -54,7 +53,8 @@ export const StoreTable: React.FC<Props> = ({ stores, order, orderBy, onSort, on
       {stores.length === 0 && <EmptyState icon={Icons.Store} title="No stores found" />}
     </div>
 
-    {/* Mobile cards */}
+
+
     <div className="md:hidden max-h-[420px] overflow-y-auto">
       <AnimatePresence>
         {stores.map((s, i) => (

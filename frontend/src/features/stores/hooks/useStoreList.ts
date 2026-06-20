@@ -5,6 +5,7 @@ import { Store } from '../types';
 
 export function useStoreList() {
   const [stores, setStores] = useState<Store[]>([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [order, setOrder] = useState<'asc' | 'desc'>('asc');
   const [orderBy, setOrderBy] = useState<'name' | 'address' | 'overallRating'>('name');
@@ -15,19 +16,21 @@ export function useStoreList() {
 
   const fetchStores = async () => {
     try {
+      setLoading(true);
       const params: Record<string, string> = { sortBy: orderBy, sortOrder: order.toUpperCase() };
       if (search.name) params.name = search.name;
       if (search.address) params.address = search.address;
       setStores((await storesApi.getAll(params)).stores);
     } catch (err: any) { setError(err.response?.data?.message || 'Failed to load stores'); }
+    finally { setLoading(false); }
   };
 
-  useEffect(() => { fetchStores(); }, [order, orderBy]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { fetchStores(); }, [order, orderBy]);
 
   useEffect(() => {
     const timer = setTimeout(() => { fetchStores(); }, 300);
     return () => clearTimeout(timer);
-  }, [search.name, search.address]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [search.name, search.address]);
 
   const handleRateStore = (s: Store) => { setDialog({ open: true, store: s }); setSelectedRating(s.userRating); };
   const handleSubmitRating = async () => {
@@ -46,7 +49,7 @@ export function useStoreList() {
   };
 
   return {
-    stores, error, setError, order, orderBy, search, setSearch, dialog, setDialog, selectedRating, setSelectedRating, viewMode, setViewMode,
+    stores, loading, error, setError, order, orderBy, search, setSearch, dialog, setDialog, selectedRating, setSelectedRating, viewMode, setViewMode,
     handleRateStore, handleSubmitRating, handleSort
   };
 }

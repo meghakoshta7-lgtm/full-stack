@@ -17,7 +17,6 @@ export const RecentUsersTable: React.FC<Props> = ({ users, onManage }) => (
         <span>Manage Users</span><Icons.ArrowRight className="w-3.5 h-3.5" />
       </button>
     </div>
-    {/* Desktop table */}
     <div className="hidden md:block overflow-x-auto max-h-[320px] overflow-y-auto">
       <table className="w-full text-[13px]">
         <thead>
@@ -45,7 +44,8 @@ export const RecentUsersTable: React.FC<Props> = ({ users, onManage }) => (
         </tbody>
       </table>
     </div>
-    {/* Mobile cards */}
+
+
     <div className="md:hidden max-h-[320px] overflow-y-auto">
       {users.map((user: any, i: number) => (
         <motion.div key={user.id || i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 + i * 0.05 }}

@@ -21,7 +21,6 @@ export const StoreTableView: React.FC<Props> = ({ stores, order, orderBy, onSort
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
       className="bg-white rounded-2xl shadow-sm overflow-hidden">
-      {/* Desktop table */}
       <div className="hidden md:block overflow-x-auto max-h-[500px] overflow-y-auto">
         <table className="w-full text-sm">
           <thead>
@@ -81,7 +80,7 @@ export const StoreTableView: React.FC<Props> = ({ stores, order, orderBy, onSort
         {stores.length === 0 && <EmptyState icon={Icons.Store} title="No stores found" subtitle="Try adjusting your search criteria" />}
       </div>
 
-      {/* Mobile cards */}
+
       <div className="md:hidden max-h-[500px] overflow-y-auto">
         <AnimatePresence>
           {stores.map((s, i) => (

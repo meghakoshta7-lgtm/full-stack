@@ -17,7 +17,6 @@ const bottomItems = [
 
 export const IllustrationPanel: React.FC = () => (
   <>
-    {/* Desktop: side panel */}
     <div className="hidden lg:flex lg:w-[56%] relative flex-col bg-[#f0eaf8]">
       <div className="absolute top-[14%] left-[18%] w-[6px] h-[6px] rounded-full" style={{ background: '#c4a8f0', opacity: 0.55 }} />
       <div className="absolute top-[9%] left-[44%] w-[5px] h-[5px] rounded-full" style={{ background: '#b89ae8', opacity: 0.45 }} />
@@ -91,7 +90,8 @@ export const IllustrationPanel: React.FC = () => (
       </motion.div>
     </div>
 
-    {/* Mobile: compact top section */}
+
+
     <div className="flex lg:hidden w-full flex-col items-center py-8 px-6 bg-[#f0eaf8]">
       <motion.div initial={{ scale: 0.85, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' as const }}

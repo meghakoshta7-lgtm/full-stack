@@ -17,7 +17,6 @@ export const RecentStoresTable: React.FC<Props> = ({ stores, onManage }) => (
         <span>Manage Stores</span><Icons.ArrowRight className="w-3.5 h-3.5" />
       </button>
     </div>
-    {/* Desktop table */}
     <div className="hidden md:block overflow-x-auto max-h-[320px] overflow-y-auto">
       <table className="w-full text-[13px]">
         <thead>
@@ -52,7 +51,8 @@ export const RecentStoresTable: React.FC<Props> = ({ stores, onManage }) => (
         </tbody>
       </table>
     </div>
-    {/* Mobile cards */}
+
+
     <div className="md:hidden max-h-[320px] overflow-y-auto">
       {stores.map((store: any, i: number) => (
         <motion.div key={store.id || i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 + i * 0.05 }}

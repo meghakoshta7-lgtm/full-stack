@@ -15,7 +15,6 @@ interface Props {
 
 export const UserTable: React.FC<Props> = ({ users, order, orderBy, onSort, onEdit, onDelete }) => (
   <div className="card overflow-hidden">
-    {/* Desktop table */}
     <div className="hidden md:block overflow-x-auto max-h-[420px] overflow-y-auto">
       <table className="w-full text-sm">
         <thead className="bg-surface-50">
@@ -53,7 +52,8 @@ export const UserTable: React.FC<Props> = ({ users, order, orderBy, onSort, onEd
       {users.length === 0 && <EmptyState icon={Icons.Users} title="No users found" />}
     </div>
 
-    {/* Mobile cards */}
+
+
     <div className="md:hidden max-h-[420px] overflow-y-auto">
       <AnimatePresence>
         {users.map((u, i) => (
