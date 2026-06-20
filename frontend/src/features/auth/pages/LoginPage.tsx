@@ -54,7 +54,7 @@ const LoginPage: React.FC = () => {
   if (view === 'forgot') {
     return (
       <div className="h-full flex flex-col bg-[#f0eaf8]">
-        <div className="flex-1 flex">
+        <div className="flex-1 flex flex-col lg:flex-row overflow-y-auto">
           <IllustrationPanel />
           <ForgotPasswordForm onBack={goToLogin} />
         </div>
@@ -65,7 +65,7 @@ const LoginPage: React.FC = () => {
   if (view === 'reset') {
     return (
       <div className="h-full flex flex-col bg-[#f0eaf8]">
-        <div className="flex-1 flex">
+        <div className="flex-1 flex flex-col lg:flex-row overflow-y-auto">
           <IllustrationPanel />
           <ResetPasswordForm token={resetToken} onBack={goToLogin} />
         </div>
@@ -75,7 +75,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="h-full flex flex-col bg-[#f0eaf8]">
-      <div className="flex-1 flex">
+      <div className="flex-1 flex flex-col lg:flex-row overflow-y-auto">
         <IllustrationPanel />
         <LoginForm
           formData={formData} error={error || (googleLoading ? '' : '')} loading={loading || googleLoading}

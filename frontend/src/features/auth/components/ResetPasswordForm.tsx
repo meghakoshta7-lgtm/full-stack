@@ -45,7 +45,7 @@ export const ResetPasswordForm: React.FC<Props> = ({ token, onBack }) => {
 
   if (!token) {
     return (
-      <div className="w-full lg:w-[44%] flex items-center justify-center px-5 py-5 bg-[#f0eaf8]">
+      <div className="w-full lg:w-[44%] flex items-center justify-center px-5 py-5 lg:bg-[#f0eaf8]">
         <motion.div initial={{ opacity: 0, y: 24, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }} className="w-full max-w-[440px]">
           <div className="rounded-[20px] px-10 py-8 text-center"
@@ -65,26 +65,26 @@ export const ResetPasswordForm: React.FC<Props> = ({ token, onBack }) => {
   }
 
   return (
-    <div className="w-full lg:w-[44%] flex items-center justify-center px-5 py-5 bg-[#f0eaf8]">
-      <motion.div
-        initial={{ opacity: 0, y: 24, scale: 0.97 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="w-full max-w-[440px]">
-        <div className="rounded-[20px] px-10 py-8"
-          style={{ background: '#ffffff', boxShadow: '0 8px 40px rgba(0, 0, 0, 0.06)', border: '1px solid rgba(99, 102, 241, 0.04)' }}>
+      <div className="w-full lg:w-[44%] flex items-center justify-center px-5 py-5 lg:bg-[#f0eaf8]">
+        <motion.div
+          initial={{ opacity: 0, y: 24, scale: 0.97 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="w-full max-w-[440px]">
+          <div className="rounded-[20px] px-10 py-8"
+            style={{ background: '#ffffff', boxShadow: '0 8px 40px rgba(0, 0, 0, 0.06)', border: '1px solid rgba(99, 102, 241, 0.04)' }}>
 
-          <motion.div variants={container} initial="hidden" animate="show">
-            <motion.div variants={item} className="text-center mb-6">
-              <motion.div initial={{ scale: 0, rotate: -180 }} animate={{ scale: 1, rotate: 0 }}
-                transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.3 }}
-                className="w-[56px] h-[56px] mx-auto mb-4 rounded-[16px] flex items-center justify-center"
-                style={{ background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', boxShadow: '0 8px 24px rgba(99, 102, 241, 0.35)' }}>
-                <Icons.KeyRound className="w-[26px] h-[26px] text-white" strokeWidth={1.5} />
+            <motion.div variants={container} initial="hidden" animate="show">
+              <motion.div variants={item} className="text-center mb-6">
+                <motion.div initial={{ scale: 0, rotate: -180 }} animate={{ scale: 1, rotate: 0 }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.3 }}
+                  className="w-[56px] h-[56px] mx-auto mb-4 rounded-[16px] flex items-center justify-center"
+                  style={{ background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', boxShadow: '0 8px 24px rgba(99, 102, 241, 0.35)' }}>
+                  <Icons.KeyRound className="w-[26px] h-[26px] text-white" strokeWidth={1.5} />
+                </motion.div>
+                <h1 className="text-[22px] font-display font-bold" style={{ color: '#1e293b' }}>Reset password</h1>
+                <p className="mt-1 text-[13px]" style={{ color: '#94a3b8' }}>Choose a new password for your account</p>
               </motion.div>
-              <h1 className="text-[22px] font-display font-bold" style={{ color: '#1e293b' }}>Reset password</h1>
-              <p className="mt-1 text-[13px]" style={{ color: '#94a3b8' }}>Choose a new password for your account</p>
-            </motion.div>
 
             {error && (
               <motion.div variants={item} className="mb-4 p-3 rounded-[10px] text-[12px] font-medium text-center"

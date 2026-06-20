@@ -39,7 +39,7 @@ export const ForgotPasswordForm: React.FC<Props> = ({ onBack }) => {
   };
 
   return (
-    <div className="w-full lg:w-[44%] flex items-center justify-center px-5 py-5 bg-[#f0eaf8]">
+    <div className="w-full lg:w-[44%] flex items-center justify-center px-5 py-5 lg:bg-[#f0eaf8]">
       <motion.div
         initial={{ opacity: 0, y: 24, scale: 0.97 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}

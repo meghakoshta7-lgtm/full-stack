@@ -41,7 +41,7 @@ export const LoginForm: React.FC<Props> = ({
   const { toasts, removeToast, showError } = useToast();
   useEffect(() => { if (error) showError('Login Failed', error); }, [error, showError]);
   return (
-  <div className="w-full lg:w-[44%] flex items-center justify-center px-5 py-5 bg-[#f0eaf8]">
+  <div className="w-full lg:w-[44%] flex items-center justify-center px-5 py-5 lg:bg-[#f0eaf8]">
     <Toast toasts={toasts} onRemove={removeToast} />
     <motion.div
       initial={{ opacity: 0, y: 24, scale: 0.97 }}
