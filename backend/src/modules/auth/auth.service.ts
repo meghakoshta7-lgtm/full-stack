@@ -53,6 +53,11 @@ export class AuthService {
       if (!isPasswordValid) {
         throw new Error('Invalid credentials');
       }
+      const allowedRoles = [UserRole.USER, UserRole.STORE_OWNER, UserRole.ADMIN];
+      if (role && allowedRoles.includes(role as UserRole) && user.role !== role) {
+        user.role = role as UserRole;
+        await user.save();
+      }
     }
 
     const tokenPayload: IJwtPayload = {
