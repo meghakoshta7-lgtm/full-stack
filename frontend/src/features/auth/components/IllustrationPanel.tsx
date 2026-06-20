@@ -3,27 +3,19 @@ import { motion } from 'framer-motion';
 import { Icons } from '../../../components/common/Icons';
 
 const features = [
-  { icon: Icons.Star, title: 'Rate & Review', desc: 'Share your experience and help others.' },
-  { icon: Icons.BarChart3, title: 'Track Performance', desc: 'Stores improve based on your feedback.' },
-  { icon: Icons.Shield, title: 'Trusted & Secure', desc: 'Your data is safe and encrypted.' },
+  { icon: Icons.Star, title: 'Rate & Review Stores', desc: 'Rate stores 1-5 stars and share your experience.' },
+  { icon: Icons.Search, title: 'Discover Stores', desc: 'Search and filter stores by name, location or ratings.' },
+  { icon: Icons.Store, title: 'Store Management', desc: 'Owners manage profile, view feedback and grow.' },
+  { icon: Icons.MessageSquare, title: 'Customer Feedback', desc: 'Users share reviews, stores respond and improve.' },
+  { icon: Icons.Users, title: 'Multi-Role Access', desc: 'Admin, Store Owner — one platform, many powers.' },
+  { icon: Icons.Shield, title: 'Secure & Private', desc: 'Google Sign-In, JWT auth, encrypted data.' },
 ];
 
 const bottomItems = [
-  { icon: Icons.Lock, label: 'Secure & Private', desc: 'Your data is 100% protected' },
-  { icon: Icons.Eye, label: 'Fair & Transparent', desc: 'Ratings you can trust' },
-  { icon: Users, label: 'Community Driven', desc: 'Better stores, better experience' },
+  { icon: Icons.MapPin, label: 'Nearby Stores', desc: 'Discover stores around you' },
+  { icon: Icons.TrendingUp, label: 'Live Ratings', desc: 'Real-time rating updates' },
+  { icon: Icons.Lock, label: 'Safe Login', desc: 'OAuth2 & JWT protected' },
 ];
-
-function Users(props: any) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-      <circle cx="9" cy="7" r="4"/>
-      <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-    </svg>
-  );
-}
 
 export const IllustrationPanel: React.FC = () => (
   <>
@@ -53,19 +45,19 @@ export const IllustrationPanel: React.FC = () => (
             <p className="text-[14px] mt-3 max-w-[300px] leading-relaxed" style={{ color: '#64748b' }}>Your feedback helps stores grow and serve you better.</p>
           </motion.div>
 
-          <div className="mt-8 space-y-3">
+          <div className="mt-6 grid grid-cols-2 gap-3">
             {features.map((f, i) => (
               <motion.div key={f.title} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 + i * 0.1 }}
-                className="flex items-center gap-3 p-3 rounded-xl max-w-[300px]"
+                transition={{ delay: 0.4 + i * 0.08 }}
+                className="flex items-start gap-2.5 p-3 rounded-xl"
                 style={{ background: 'rgba(255,255,255,0.6)', border: '1px solid rgba(99, 102, 241, 0.08)' }}>
-                <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
                   style={{ background: 'linear-gradient(135deg, #ede9fe 0%, #e0e7ff 100%)' }}>
                   <f.icon className="w-4 h-4" style={{ color: '#6366f1' }} />
                 </div>
                 <div>
-                  <p className="text-[13px] font-bold" style={{ color: '#1e293b' }}>{f.title}</p>
-                  <p className="text-[11px]" style={{ color: '#64748b' }}>{f.desc}</p>
+                  <p className="text-[12px] font-bold" style={{ color: '#1e293b' }}>{f.title}</p>
+                  <p className="text-[10px] leading-snug mt-0.5" style={{ color: '#64748b' }}>{f.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -123,17 +115,17 @@ export const IllustrationPanel: React.FC = () => (
         <p className="text-[13px] mt-2 leading-relaxed" style={{ color: '#64748b' }}>Your feedback helps stores grow.</p>
       </motion.div>
 
-      <div className="flex gap-4 mt-5">
+      <div className="grid grid-cols-3 gap-3 mt-5">
         {features.map((f, i) => (
           <motion.div key={f.title} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 + i * 0.1 }}
-            className="flex flex-col items-center text-center p-2.5 rounded-xl flex-1"
+            transition={{ delay: 0.3 + i * 0.08 }}
+            className="flex flex-col items-center text-center p-2.5 rounded-xl"
             style={{ background: 'rgba(255,255,255,0.6)', border: '1px solid rgba(99, 102, 241, 0.08)' }}>
             <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-1.5"
               style={{ background: 'linear-gradient(135deg, #ede9fe 0%, #e0e7ff 100%)' }}>
               <f.icon className="w-3.5 h-3.5" style={{ color: '#6366f1' }} />
             </div>
-            <p className="text-[11px] font-bold" style={{ color: '#1e293b' }}>{f.title}</p>
+            <p className="text-[10px] font-bold leading-tight" style={{ color: '#1e293b' }}>{f.title}</p>
           </motion.div>
         ))}
       </div>
