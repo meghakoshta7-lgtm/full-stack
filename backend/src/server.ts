@@ -18,8 +18,20 @@ app.use('/api/users', userRoutes);
 app.use('/api/stores', storeRoutes);
 app.use('/api/ratings', ratingRoutes);
 
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+app.get('/health', async (_req, res) => {
+  try {
+    const mongoose = await import('mongoose');
+    const dbState = mongoose.default.connection.readyState;
+    const states: Record<number, string> = { 0: 'disconnected', 1: 'connected', 2: 'connecting', 3: 'disconnecting' };
+    res.json({
+      status: 'ok',
+      db: states[dbState] || 'unknown',
+      uptime: Math.floor(process.uptime()),
+      timestamp: new Date().toISOString(),
+    });
+  } catch {
+    res.json({ status: 'ok', db: 'unknown', timestamp: new Date().toISOString() });
+  }
 });
 
 const startServer = async () => {
