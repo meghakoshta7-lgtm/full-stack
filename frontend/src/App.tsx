@@ -57,9 +57,9 @@ const AppContent: React.FC = () => {
   const isStorePage = location.pathname === '/stores';
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="h-screen flex flex-col overflow-hidden">
       <Navbar />
-      <main className={`flex-1 ${isStorePage ? '' : 'py-6 bg-[#f8fafc]'}`}>
+      <main className={`flex-1 min-h-0 overflow-y-auto ${isStorePage ? '' : 'py-6 bg-[#f8fafc]'}`}>
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/unauthorized" element={<AnimatedPage><Unauthorized /></AnimatedPage>} />
