@@ -23,7 +23,7 @@ export const ResetPasswordForm: React.FC<Props> = ({ token, onBack }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [done, setDone] = useState(false);
+  const [done, setDone] = useState(() => token && localStorage.getItem(`rp_done_${token}`) === 'true');
   const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -35,12 +35,18 @@ export const ResetPasswordForm: React.FC<Props> = ({ token, onBack }) => {
     setLoading(true);
     try {
       await authApi.resetPassword(token, password);
+      localStorage.setItem(`rp_done_${token}`, 'true');
       setDone(true);
     } catch (err: any) {
       setError(err.response?.data?.message || 'Something went wrong');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleBack = () => {
+    if (token) localStorage.removeItem(`rp_done_${token}`);
+    onBack();
   };
 
   if (!token) {
@@ -55,7 +61,7 @@ export const ResetPasswordForm: React.FC<Props> = ({ token, onBack }) => {
             </div>
             <h1 className="text-[22px] font-display font-bold" style={{ color: '#1e293b' }}>Invalid link</h1>
             <p className="text-[13px] mt-2" style={{ color: '#64748b' }}>This reset link is invalid or has expired.</p>
-            <button onClick={onBack} className="mt-5 text-[13px] font-semibold hover:underline" style={{ color: '#6366f1' }}>
+            <button onClick={handleBack} className="mt-5 text-[13px] font-semibold hover:underline" style={{ color: '#6366f1' }}>
               Back to sign in
             </button>
           </div>
@@ -100,9 +106,9 @@ export const ResetPasswordForm: React.FC<Props> = ({ token, onBack }) => {
                 </div>
                 <p className="text-[14px] font-semibold" style={{ color: '#1e293b' }}>Password reset successful</p>
                 <p className="text-[12px] mt-1" style={{ color: '#64748b' }}>You can now sign in with your new password.</p>
-                <button onClick={onBack} className="mt-5 text-[13px] font-semibold hover:underline" style={{ color: '#6366f1' }}>
-                  Sign in
-                </button>
+              <button onClick={handleBack} className="mt-5 text-[13px] font-semibold hover:underline" style={{ color: '#6366f1' }}>
+                Sign in
+              </button>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit}>
@@ -153,7 +159,7 @@ export const ResetPasswordForm: React.FC<Props> = ({ token, onBack }) => {
             )}
 
             <motion.div variants={item} className="text-center mt-5">
-              <button onClick={onBack} className="text-[13px] font-semibold hover:underline" style={{ color: '#6366f1' }}>
+              <button onClick={handleBack} className="text-[13px] font-semibold hover:underline" style={{ color: '#6366f1' }}>
                 Back to sign in
               </button>
             </motion.div>

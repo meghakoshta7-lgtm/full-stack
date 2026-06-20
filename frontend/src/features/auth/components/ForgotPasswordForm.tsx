@@ -18,9 +18,9 @@ const item = {
 };
 
 export const ForgotPasswordForm: React.FC<Props> = ({ onBack }) => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(() => localStorage.getItem('fp_email') || '');
   const [loading, setLoading] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [sent, setSent] = useState(() => localStorage.getItem('fp_sent') === 'true');
   const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -30,12 +30,20 @@ export const ForgotPasswordForm: React.FC<Props> = ({ onBack }) => {
     setLoading(true);
     try {
       await authApi.forgotPassword(email);
+      localStorage.setItem('fp_sent', 'true');
+      localStorage.setItem('fp_email', email);
       setSent(true);
     } catch (err: any) {
       setError(err.response?.data?.message || 'Something went wrong');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleBack = () => {
+    localStorage.removeItem('fp_sent');
+    localStorage.removeItem('fp_email');
+    onBack();
   };
 
   return (
@@ -74,7 +82,7 @@ export const ForgotPasswordForm: React.FC<Props> = ({ onBack }) => {
                 </div>
                 <p className="text-[14px] font-semibold" style={{ color: '#1e293b' }}>Check your email</p>
                 <p className="text-[12px] mt-1" style={{ color: '#64748b' }}>If that email is registered, you'll receive a reset link shortly.</p>
-                <button onClick={onBack} className="mt-5 text-[13px] font-semibold hover:underline" style={{ color: '#6366f1' }}>
+                <button onClick={handleBack} className="mt-5 text-[13px] font-semibold hover:underline" style={{ color: '#6366f1' }}>
                   Back to sign in
                 </button>
               </motion.div>
@@ -108,7 +116,7 @@ export const ForgotPasswordForm: React.FC<Props> = ({ onBack }) => {
             )}
 
             <motion.div variants={item} className="text-center mt-5">
-              <button onClick={onBack} className="text-[13px] font-semibold hover:underline" style={{ color: '#6366f1' }}>
+              <button onClick={handleBack} className="text-[13px] font-semibold hover:underline" style={{ color: '#6366f1' }}>
                 Back to sign in
               </button>
             </motion.div>
