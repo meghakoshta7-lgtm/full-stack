@@ -1,28 +1,41 @@
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
-import net from 'net';
+import dns from 'dns';
 
 dotenv.config();
 
-function createIPv4Transport() {
+function resolveIPv4(host: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    dns.resolve4(host, (err, addresses) => {
+      if (err || !addresses.length) {
+        reject(err || new Error('No IPv4 addresses found'));
+      } else {
+        resolve(addresses[0]);
+      }
+    });
+  });
+}
+
+async function createTransport() {
   const host = process.env.SMTP_HOST || 'smtp.gmail.com';
   const port = parseInt(process.env.SMTP_PORT || '587', 10);
 
-  const socket = net.createConnection({ host, port, family: 4 } as any);
+  const ipv4 = await resolveIPv4(host);
+  console.log('[EmailService] Resolved IPv4:', host, '->', ipv4);
 
   return nodemailer.createTransport({
-    socket,
-    host,
+    host: ipv4,
     port,
     secure: false,
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
     },
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 10000,
-  } as any);
+    tls: { rejectUnauthorized: false },
+    connectionTimeout: 15000,
+    greetingTimeout: 15000,
+    socketTimeout: 15000,
+  });
 }
 
 export class EmailService {
@@ -30,9 +43,9 @@ export class EmailService {
     const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
     const resetLink = `${frontendUrl}/reset-password?token=${rawToken}`;
 
-    console.log('[EmailService] Sending to:', to, '(forced IPv4)');
+    console.log('[EmailService] Sending to:', to);
 
-    const transporter = createIPv4Transport();
+    const transporter = await createTransport();
     const info = await transporter.sendMail({
       from: process.env.EMAIL_FROM || 'Store Rating System <noreply@gmail.com>',
       to,
